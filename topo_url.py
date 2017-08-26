@@ -56,12 +56,12 @@ new_scale = 4
 # pixels of the image of the size given (xl right now) to meters, and convert
 # that to lat/lon. Check out:
 # https://stackoverflow.com/questions/639695/how-to-convert-latitude-or-longitude-to-meters
-lat_delta = 0.09179 * 2
-lon_delta = 0.13361 * 2
+lat_delta = 0.3671 * 2
+lon_delta = 0.53302 * 2
 
 # Input centroid
-original_lat = 46.81740
-original_lon = -116.87315
+original_lat = 43.9768
+original_lon = -114.92435
 
 # Number of steps we need to take across the map
 # lat/lon are centroids, so offset each by .5
@@ -74,7 +74,7 @@ lat_step = lat_delta / scale_mult
 lon_step = lon_delta / scale_mult
 
 domain = 'https://www.topoquest.com'
-template = domain + '/map.php?lat={}&lon={}&datum=nad27&zoom=4&map=auto&coord=d&mode=zoomin&size=xl'
+template = domain + '/map.php?lat={}&lon={}&datum=nad27&zoom={}&map=auto&coord=d&mode=zoomin&size=xl'
 tiles_dir = os.path.join(DIR, 'tiles')
 
 if args.skip_download:
@@ -92,7 +92,7 @@ else:
             cur_lat = original_lat - lat_step * lat_frame
             cur_lon = original_lon + lon_step * lon_frame
 
-            urls.append(template.format(cur_lat, cur_lon))
+            urls.append(template.format(cur_lat, cur_lon, new_scale))
 
     # Make sure the directory exists, remove everything in there
     shutil.rmtree(tiles_dir)
